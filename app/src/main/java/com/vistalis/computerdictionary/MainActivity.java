@@ -46,14 +46,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setActivityToFullScreen();
 
-        this.wordForToday();
-
         findViewById(R.id.mainLayout).requestFocus();
 
         // if words are not inserted
         if (DB.getInstance(this).wordsDao().noOfWords() == 0) {
             WordRepository.insertAllWords(this);
         }
+
+        this.wordForToday();
+
 
         this.buildRecyclerView();
 
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
         if( !isWordForTodayDisplayed && (currentDay == null || !currentDay.equals(weekDay) )) {
             Word word = DB.getInstance(this).wordsDao().pickWord(randomId);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(word.getWord());
+            builder.setTitle("Word for today");
             builder.setCancelable(false);
-            builder.setMessage(word.getDefinition()).setPositiveButton("Thank you", (dialog, which) -> {
+            builder.setMessage(word.getWord() + " - " + word.getDefinition()).setPositiveButton("Thank you", (dialog, which) -> {
 
                 SharedPref.setSharedPreferenceBoolean(this,"word_for_today",true);
                 SharedPref.setSharedPreferenceString(this,"current_day",weekDay);
