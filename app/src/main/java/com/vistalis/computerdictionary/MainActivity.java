@@ -44,14 +44,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPref.setSharedPreferenceBoolean(this,"is_splash_open",true);
+
         this.setActivityToFullScreen();
 
         findViewById(R.id.mainLayout).requestFocus();
-
-        // if words are not inserted
-        if (DB.getInstance(this).wordsDao().noOfWords() == 0) {
-            WordRepository.insertAllWords(this);
-        }
 
         this.wordForToday();
 
