@@ -21,7 +21,7 @@ import java.util.List;
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordHolder> {
 
     private List<Word> list_word;
-    private List<String> favoriteWords;
+    private List<Integer> favoriteWords;
 
 
     public WordAdapter(List<Word> list_word) {
@@ -43,7 +43,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordHolder> {
 
         holder.word.setText(word.getWord());
 
-        if (favoriteWords.contains(word.getWord())) {
+        if (favoriteWords.contains(word.getId())) {
             holder.btnFavorite.setImageResource(R.drawable.ic_favorite_2_black_24dp);
         } else {
             holder.btnFavorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
@@ -52,15 +52,15 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordHolder> {
         holder.btnFavorite.setOnClickListener(v -> {
             String message;
 
-            if (favoriteWords.contains(word.getWord())) {
+            if (favoriteWords.contains(word.getId())) {
                 message = "Successfully remove to your favorites";
-                DB.getInstance(context).wordFavoriteDao().deleteFavoriteWord(word.getWord());
+                DB.getInstance(context).wordFavoriteDao().deleteFavoriteWord(word.getId());
                 holder.btnFavorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
 
             } else {
                 message = "Successfully add to your favorites";
                 DB.getInstance(context).wordFavoriteDao().insertWord(
-                        new WordFavorite(word.getWord(),word.getDefinition()));
+                        new WordFavorite(word.getId(),word.getWord(),word.getDefinition()));
                 holder.btnFavorite.setImageResource(R.drawable.ic_favorite_2_black_24dp);
             }
 
@@ -69,12 +69,8 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordHolder> {
             favoriteWords = DB.getInstance(context).wordFavoriteDao().getWords();
 
 
-
-
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
         });
-
-
 
 
         holder.word.setOnClickListener(v -> {

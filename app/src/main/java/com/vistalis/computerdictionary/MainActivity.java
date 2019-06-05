@@ -82,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.action_history:
+              /*  case R.id.action_history:
                     Toast.makeText(MainActivity.this, "Recents", Toast.LENGTH_SHORT).show();
-                    break;
+                    break;*/
                 case R.id.action_favorites:
                     Intent intent = new Intent(this,FavoritesActivity.class);
                     startActivity(intent);

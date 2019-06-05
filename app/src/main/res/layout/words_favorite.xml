@@ -3,15 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="8dp"
     >
 
     <TextView
-    android:id="@+id/word"
-    android:textAlignment="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="#000000"
-    android:textStyle="bold" />
+        android:id="@+id/word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF000000"
+        android:textStyle="bold"
+        />
+
 
     <TextView
         android:layout_below="@+id/word"
@@ -20,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:textColor="#FF000000"
-        android:padding="20dp"
          />
 
 </RelativeLayout>

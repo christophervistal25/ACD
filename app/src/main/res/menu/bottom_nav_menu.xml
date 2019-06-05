@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+<!--
     <item
         android:id="@+id/action_history"
         android:enabled="true"
         android:icon="@drawable/ic_history_black_24dp"
         android:title="Search history"
         app:showAsAction="ifRoom" />
+-->
 
 
     <item

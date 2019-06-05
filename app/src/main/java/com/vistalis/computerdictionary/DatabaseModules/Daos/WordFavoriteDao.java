@@ -12,18 +12,19 @@ import java.util.List;
 
 @Dao
     public interface WordFavoriteDao {
+
         @Insert(onConflict = OnConflictStrategy.IGNORE)
         void insertWord(WordFavorite wordFavorite);
 
-        @Query("DELETE from words_favorite WHERE word =:word")
-        void deleteFavoriteWord(String word);
+        @Query("DELETE from words_favorite WHERE word_id =:word_id")
+        void deleteFavoriteWord(int word_id);
 
 
-    @Query("SELECT * FROM words_favorite")
+        @Query("SELECT * FROM words_favorite")
         List<WordFavorite> getAllFavorites();
 
-        @Query("SELECT word FROM words_favorite")
-        List<String> getWords();
+        @Query("SELECT word_id FROM words_favorite")
+        List<Integer> getWords();
 
 
 }
