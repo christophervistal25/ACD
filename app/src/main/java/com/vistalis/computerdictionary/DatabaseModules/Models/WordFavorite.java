@@ -15,6 +15,7 @@ public class WordFavorite {
     public String word;
     public String definition;
 
+
     public WordFavorite(int word_id, String word, String definition) {
         this.setWord(word);
         this.setDefinition(definition);

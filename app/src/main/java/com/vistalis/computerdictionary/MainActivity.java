@@ -33,6 +33,8 @@ import java.util.Random;
 
 import hotchemi.android.rate.AppRate;
 
+import static com.vistalis.computerdictionary.Helpers.SharedPref.*;
+
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPref.setSharedPreferenceBoolean(this,"is_splash_open",true);
+        setSharedPreferenceBoolean(this,"is_splash_open",true);
 
         this.setActivityToFullScreen();
 
@@ -93,30 +95,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void wordForToday() {
-        String weekDay;
-        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
-
         Calendar calendar = Calendar.getInstance();
-        weekDay = dayFormat.format(calendar.getTime());
-
-        boolean isWordForTodayDisplayed = SharedPref.getSharedPreferenceBoolean(this,"word_for_today",false);
-
-        String currentDay = SharedPref.getSharedPreferenceString(this,"current_day",null);
-
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int lastDay = getSharedPreferenceInt(getApplicationContext(),"day",0);
         int noOfWords = DB.getInstance(this).wordsDao().noOfWords();
         Random r = new Random();
         int randomId = r.nextInt(noOfWords);
 
-        if( !isWordForTodayDisplayed && (currentDay == null || !currentDay.equals(weekDay) )) {
+        if( lastDay != currentDay ) {
+            setSharedPreferenceInt(getApplicationContext(),"day",currentDay);
+
             Word word = DB.getInstance(this).wordsDao().pickWord(randomId);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Word for today");
             builder.setCancelable(false);
             builder.setMessage(word.getWord() + " - " + word.getDefinition()).setPositiveButton("Thank you", (dialog, which) -> {
-
-                SharedPref.setSharedPreferenceBoolean(this,"word_for_today",true);
-                SharedPref.setSharedPreferenceString(this,"current_day",weekDay);
-
+                // If the user click the Thank you button what would you want to execute place here...
             }).create().show();
         }
     }
